@@ -174,7 +174,7 @@ class ContainersController extends Controller
         $image->message ? $uri .= "&message=$image->message" : $uri;
 
         $response = Http::post("$url/$uri");
-
+        
         if ($response->getStatusCode() != 200) {
             dd($response->json());
         }
@@ -183,7 +183,7 @@ class ContainersController extends Controller
     private function createContainer($url, $data)
     {
         $response = Http::asJson()->post("$url/containers/create", $data);
-
+        //dd($response->getStatusCode());
         if ($response->getStatusCode() == 201) {
             $container_id = $response->json()['Id'];
             $response = Http::asJson()->post("$url/containers/$container_id/start");
