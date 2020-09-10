@@ -44,7 +44,7 @@ class UserController extends Controller
         $result = $user->update($request->all());
 
         if ($result) {
-            return redirect()->route('home.index');
+            return redirect()->back();
         } else {
             return redirect()->back()->withInput();
         }
