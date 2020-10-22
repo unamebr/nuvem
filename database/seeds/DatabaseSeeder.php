@@ -50,6 +50,24 @@ class DatabaseSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
+        DB::table('images')->insert([
+            'name' => 'Wordpress:latest',
+            'description' => 'The WordPress rich content management system can utilize plugins, widgets, and themes.',
+            'fromImage' => 'wordpress',
+            'tag' => 'latest',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('images')->insert([
+            'name' => 'Mysql:latest',
+            'description' => 'MySQL is a widely used, open-source relational database management system (RDBMS).',
+            'fromImage' => 'mysql',
+            'tag' => 'latest',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
         $this->call([UsersTableSeeder::class]);
     }
 }

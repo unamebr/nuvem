@@ -100,6 +100,15 @@
             </div>
             <div class="form-check mr-auto ml-3 mt-3">
               <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" id="type" name="type" {{ old('type', 1) ? 'checked' : '' }} >
+                <span class="form-check-sign">
+                  <span class="check"></span>
+                </span>
+                {{ __('Register as a student.') }}
+              </label>
+            </div>
+            <div class="form-check mr-auto ml-3 mt-3">
+              <label class="form-check-label">
                 <input class="form-check-input" type="checkbox" id="policy" name="policy" {{ old('policy', 1) ? 'checked' : '' }} >
                 <span class="form-check-sign">
                   <span class="check"></span>

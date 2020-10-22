@@ -25,14 +25,28 @@ Route::get('/', function () {
     }
 });
 Route::get('admin-area', 'AdminAreaController@index')->name('admin.area');
+Route::get('admin-area/requests', 'AdminAreaController@requests')->name('admin.area.requests');
 Route::get('admin-area/machines', 'AdminAreaController@machines')->name('admin.area.machines');
 Route::get('admin-area/users', 'AdminAreaController@users')->name('admin.area.users');
+Route::get('admin-area/dockerfiles', 'AdminAreaController@dockerfiles')->name('admin.area.dockerfiles');
+Route::get('dockerfiles/create', 'DockerfileController@create')->name('dockerfiles.create');
+Route::post('dockerfiles/store', 'DockerfileController@store')->name('dockerfiles.store');
+Route::post('dockerfiles/build', 'DockerfileController@build')->name('dockerfiles.build');
+
 Route::resource('machines', 'MaquinasController')->except('index')->middleware('auth');
 Route::resource('images', 'ImagesController')->middleware('auth');
 Route::get('containers-instace', 'Api\ContainersController@index')->name('instance.index');
 Route::resource('containers', 'Api\ContainersController');
 Route::post('containers-instace', 'ImagesController@configureContainer')->name('instance.configure');
 Route::get('terminal-tab/{docker_id}', 'Api\ContainersController@terminalNewTab')->name('container.terminalTab');
+
+Route::get('aluno/basic/index', 'ImagesController@listImages')->name('aluno.basic.index');
+Route::get('aluno/advanced/index', 'AlunoController@painel')->name('aluno.advanced.index');
+Route::get('aluno/advanced/terminal/{docker_id}', 'AlunoController@terminal')->name('aluno.advanced.terminal');
+
+Route::post('aluno/advanced/container/store', 'AlunoController@containerStore')->name('aluno.advanced.container.store');
+Route::post('aluno/basic/salvarImagem', 'ImagesController@salvarImagem')->name('aluno.salvar.imagem');
+
 Auth::routes();
 
 Auth::routes();
