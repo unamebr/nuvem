@@ -1,0 +1,9 @@
+Lendo listas de pacotes...
+Construindo árvore de dependências...
+Lendo informação de estado...
+O pacote libcurl3 não está disponível, mas é referenciado por outro pacote.
+Isto pode significar que o pacote está faltando, ficou obsoleto ou
+está disponível somente a partir de outra fonte
+No entanto, os pacotes a seguir o substituem:
+  libcurl4:i386 libcurl4
+

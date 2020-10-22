@@ -45,6 +45,7 @@ class ContainersController extends Controller
             'dockerHost' => env('DOCKER_HOST'),
             'title' => 'My Containers',
         ];
+        
 
         return view('pages/my-containers/my_containers', $params);
     }
@@ -63,6 +64,8 @@ class ContainersController extends Controller
 
         return view('pages/my-containers/my_containers_terminal_tab', $params);
     }
+
+    
 
     public function show($id)
     {
@@ -134,6 +137,7 @@ class ContainersController extends Controller
 
     private function setDefaultDockerParams(array $data)
     {
+
         $data['Image'] = Image::find($data['image_id'])->fromImage;
         $data['Memory'] = $data['Memory'] ? intval($data['Memory']) : 0;
 
@@ -184,6 +188,7 @@ class ContainersController extends Controller
     {
         $response = Http::asJson()->post("$url/containers/create", $data);
         //dd($response->getStatusCode());
+        //dd($data);
         if ($response->getStatusCode() == 201) {
             $container_id = $response->json()['Id'];
             $response = Http::asJson()->post("$url/containers/$container_id/start");

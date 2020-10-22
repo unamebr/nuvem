@@ -25,6 +25,14 @@
         </a>
       </li>
       @endif
+      @if(Auth::user()->isAdmin())
+      <li class="nav-item{{ $activePage == 'admin-area-requests' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.area.requests') }}">
+          <i class="material-icons">assessment</i>
+            <p>{{ __('Solicitações') }}</p>
+        </a>
+      </li>
+      @endif
       <li class="nav-item{{ $activePage == 'profile' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('profile.edit') }}">
           <i class="material-icons">account_circle</i>
@@ -49,6 +57,24 @@
         <a class="nav-link" href="{{ route('instance.index') }}">
             <i class="fas fa-server"></i>
             <span class="sidebar-normal"> {{ __('My Containers') }} </span>
+        </a>
+      </li>
+      <li class="nav-item{{ $activePage == 'dockerfiles' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.area.dockerfiles') }}">
+            <i class="fas fa-server"></i>
+            <span class="sidebar-normal"> {{ __('Dockerfiles') }} </span>
+        </a>
+      </li>
+      <li class="nav-item{{ $activePage == 'basic' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('aluno.basic.index') }}">
+            <i class="fas fa-server"></i>
+            <span class="sidebar-normal"> {{ __('Basic') }} </span>
+        </a>
+      </li>
+      <li class="nav-item{{ $activePage == 'advanced' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('aluno.advanced.index') }}">
+            <i class="fas fa-server"></i>
+            <span class="sidebar-normal"> {{ __('Advanced') }} </span>
         </a>
       </li>
       <!-- <li class="nav-item {{ ($activePage == 'profile' || $activePage == 'user-management') ? ' active' : '' }}">

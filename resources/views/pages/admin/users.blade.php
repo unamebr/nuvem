@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'admin-area', 'titlePage' => __("Admin Area")])
+@extends('layouts.app', ['activePage' => 'admin-area-requests', 'titlePage' => __("Admin Area")])
 
 @section('content')
 <div class="content">

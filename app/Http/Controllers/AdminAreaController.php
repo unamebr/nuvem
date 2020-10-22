@@ -6,6 +6,7 @@ use App\Models\Image;
 use App\Models\Container;
 use App\Models\Maquina;
 use App\Models\User;
+use App\Models\Dockerfile;
 use Illuminate\Support\Facades\Auth;
 
 class AdminAreaController extends Controller
@@ -97,6 +98,22 @@ class AdminAreaController extends Controller
         }
     }
 
+    public function requests()
+    {
+        if (Auth::user()->isAdmin()) {
+            $users = User::where('user_type', 'aluno')->orderBy('id')->paginate(10);
+            $params = [
+                'users' => $users,
+                'registeredToday' => User::whereYear('created_at', date('Y'))->whereMonth('created_at', date('m'))->whereDay('created_at', date('d'))->count(),
+                'registeredMonth' => User::whereYear('created_at', date('Y'))->whereMonth('created_at', date('m'))->count()
+            ];
+
+            return view('pages/admin/requests', $params);
+        } else {
+            return redirect()->back()->with('error', 'User not Authorized!!!');
+        }
+    }
+
     public function getMachinesCount($users)
     {
         $array = [];
@@ -154,4 +171,12 @@ class AdminAreaController extends Controller
 
         return json_encode($array);
     }
+
+    public function dockerfiles()
+    {
+        $dockerfiles = Dockerfile::all();
+
+        return view('pages.admin.dockerfiles', compact('dockerfiles'));
+
+    }   
 }
