@@ -17,10 +17,14 @@
                 <input type="hidden" name="phone" value="{{ $user->phone }}">
                                 
                 <select class="custom-select" name="user_type">                              
-                    <option @if($conteudo == 'aluno') selected @endif value="aluno">Aluno</option>
+                    <option @if($user->user_type == 'basic') selected @endif value="basic">basic</option>
                     {{--  <option @if($conteudo == 'admin') selected @endif value="admin">Admin</option>  --}}
-                    <option @if($conteudo == 'normal') selected @endif value="normal">Normal</option>
-                </select>          
+                    <option @if($user->user_type == 'advanced') selected @endif value="advanced">advanced</option>
+                </select>
+                <div class="form-group">
+                  <label for="number_container" class="col-form-label" >Number Containers</label>
+                  <input type="number" value="{{$user->containers}}" class="form-control" id="number_container">
+                </div>         
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

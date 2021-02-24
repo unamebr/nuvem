@@ -85,14 +85,7 @@ class ImagesController extends Controller
         ]);
     }
 
-    public function listImages()
-    {
-        $url = env('DOCKER_HOST');
-        $images = Http::get("$url/images/json");
-        $images = json_decode($images, true);
-        // dd($images[0]['RepoTags'][0]);
-        return view('pages.student.basic.index', compact('images'));
-    }
+    
 
     public function salvarImagem(Request $request)
     {

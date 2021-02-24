@@ -38,32 +38,77 @@ class DatabaseSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
+        // DB::table('images')->insert([
+        //     'name' => 'Nginx:latest',
+        //     'description' => 'Nginx (pronounced "engine-x") is an open source
+        //                       reverse proxy server for HTTP, HTTPS, SMTP, POP3, and IMAP
+        //                       protocols, as well as a load balancer, HTTP cache, and a web
+        //                       server (origin server).',
+        //     'fromImage' => 'nginx',
+        //     'tag' => 'latest',
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
+
+        // DB::table('images')->insert([
+        //     'name' => 'Wordpress/MySQL:11.0',
+        //     'description' => 'Image com worpress e MySQL instalados.',
+        //     'fromImage' => 'gabriel31415/wordpressmysql',
+        //     'tag' => '11.0',
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
+
         DB::table('images')->insert([
-            'name' => 'Nginx:latest',
-            'description' => 'Nginx (pronounced "engine-x") is an open source
-                              reverse proxy server for HTTP, HTTPS, SMTP, POP3, and IMAP
-                              protocols, as well as a load balancer, HTTP cache, and a web
-                              server (origin server).',
-            'fromImage' => 'nginx',
-            'tag' => 'latest',
+            'name' => 'Wordpress/MySQL:12.0',
+            'description' => 'Image com worpress e MySQL instalados.',
+            'fromImage' => 'gabriel31415/wordpressmysql',
+            'tag' => '12.0',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         DB::table('images')->insert([
-            'name' => 'Wordpress:latest',
-            'description' => 'The WordPress rich content management system can utilize plugins, widgets, and themes.',
-            'fromImage' => 'wordpress',
-            'tag' => 'latest',
+            'name' => 'Wordpress/MySQL:13.0',
+            'description' => 'Image com worpress e MySQL instalados.',
+            'fromImage' => 'gabriel31415/wordpressmysql',
+            'tag' => '13.0',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        
+        DB::table('images')->insert([
+            'name' => 'Wordpress/MySQL:14.0',
+            'description' => 'Image com worpress e MySQL instalados.',
+            'fromImage' => 'gabriel31415/wordpressmysql',
+            'tag' => '14.0',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         DB::table('images')->insert([
-            'name' => 'Mysql:latest',
-            'description' => 'MySQL is a widely used, open-source relational database management system (RDBMS).',
-            'fromImage' => 'mysql',
-            'tag' => 'latest',
+            'name' => 'Wordpress/MySQL:17.0',
+            'description' => 'Image com worpress e MySQL instalados.',
+            'fromImage' => 'gabriel31415/wordpressmysql',
+            'tag' => '17.0',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('images')->insert([
+            'name' => 'gabriel31415/joomlamariadb:2.0',
+            'description' => 'Image com joomla e MariaDB instalados.',
+            'fromImage' => 'gabriel31415/joomlamariadb',
+            'tag' => '2.0',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('images')->insert([
+            'name' => 'gabriel31415/drupalmariadb:1.0',
+            'description' => 'Image com Drupal e MariaDB instalados.',
+            'fromImage' => 'gabriel31415/drupalmariadb',
+            'tag' => '1.0',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

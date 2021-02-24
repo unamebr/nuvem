@@ -41,7 +41,7 @@
                                 <div class="col-sm-10">
                                     {!! Form::text('Labels', "", ['class'=>"form-control",
                                         'placeholder' =>"Labels (Optional) - Use ';' (semicolon) to separate, Ex: PASSWORD=password;POSTGRES_USER=user;"]) !!}
-                                </div>
+                                </div>                                
                             </div>
                             <br>
                             <div class="row">

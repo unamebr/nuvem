@@ -40,12 +40,17 @@ Route::resource('containers', 'Api\ContainersController');
 Route::post('containers-instace', 'ImagesController@configureContainer')->name('instance.configure');
 Route::get('terminal-tab/{docker_id}', 'Api\ContainersController@terminalNewTab')->name('container.terminalTab');
 
-Route::get('aluno/basic/index', 'ImagesController@listImages')->name('aluno.basic.index');
-Route::get('aluno/advanced/index', 'AlunoController@painel')->name('aluno.advanced.index');
-Route::get('aluno/advanced/terminal/{docker_id}', 'AlunoController@terminal')->name('aluno.advanced.terminal');
+//Aluno Advanced
+Route::get('aluno/advanced/index',                  'AdvancedController@painel')->name('aluno.advanced.index');
+Route::get('aluno/advanced/terminal/{docker_id}',   'AdvancedController@terminal')->name('aluno.advanced.terminal');
+Route::post('aluno/advanced/container/store',       'AdvancedController@containerStore')->name('aluno.advanced.container.store');
 
-Route::post('aluno/advanced/container/store', 'AlunoController@containerStore')->name('aluno.advanced.container.store');
-Route::post('aluno/basic/salvarImagem', 'ImagesController@salvarImagem')->name('aluno.salvar.imagem');
+//Aluno Basic
+Route::get('aluno/basic/index',             'BasicController@index')->name('aluno.basic.index');
+Route::get('aluno/basic/containers',        'BasicController@containers')->name('aluno.basic.containers');
+Route::post('aluno/basic/container/store',  'BasicController@containerStore')->name('aluno.basic.container.store');
+Route::post('aluno/basic/container/destroy/{id}',  'BasicController@destroy')->name('aluno.basic.container.destroy');
+Route::post('aluno/basic/salvarImagem',     'ImagesController@salvarImagem')->name('aluno.salvar.imagem');
 
 Auth::routes();
 

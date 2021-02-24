@@ -175,8 +175,9 @@ class AdminAreaController extends Controller
     public function dockerfiles()
     {
         $dockerfiles = Dockerfile::all();
+        $url = env('DOCKER_HOST');
 
-        return view('pages.admin.dockerfiles', compact('dockerfiles'));
+        return view('pages.admin.dockerfiles', compact('dockerfiles', 'url'));
 
     }   
 }

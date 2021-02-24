@@ -4,46 +4,83 @@
 @endpush
 
 @section('content')
-<div class="content">
-    <div class="container-fluid">      
+    <div class="content">
+      <div class="container-fluid">      
+      {{-- mensagem de confimação --}}
+      @if(session('success'))
+      <div class="col-md-12" style="margin-top: 5px;">
+          <div class="alert alert-success">
+              <p>{{session('success')}}</p>
+          </div>
+      </div>
+      @endif
+      @if(session('error'))
+      <div class="col-md-12" style="margin-top: 5px;">
+          <div class="alert alert-danger">
+              <p>{{session('error')}}</p>
+          </div>
+      </div>
+      @endif
       <div class="col-md-12">
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title ">Templates Table</h4>
                 <p class="card-category">List of Instace Container Images</p>
             </div>
-            <div class="Container" >              
-              <div class="row">
-                @foreach($images as $image)
+            <div class="Container ml-3 mr-3 " >              
+                
 
-                  <div class="col-sm-6">
-                    <div class="card text-white bg-info mb-3 ml-3" style="max-width: 25rem;">
-                      <div class="card-body">
-                        <h5 class="card-title"> 
-                        @if($image['RepoTags'] == null) 
-                          @php $pieces = explode("@", $image['RepoDigests'][0]) @endphp
-                          {{ $pieces[0] }}  
-                        @else 
-                          {{ $image['RepoTags'][0] }}
-                        @endif </h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <form action="{{ route('aluno.salvar.imagem') }}" method="post">
-                          @csrf
-                          <input type="hidden" name="repoTags" @if($image['RepoTags'] == null) 
-                          @php $pieces = explode('@', $image['RepoDigests'][0]) @endphp
-                          value="{{ $pieces[0] }}"  
-                        @else 
-                          value="{{ $image['RepoTags'][0] }}"
-                        @endif >
-                          <button type="submit" class="btn btn-primary">
-                            Salvar imagem
+                  <div class="accordion" id="accordionExample"  >
+                    <div class="card bg-primary">
+                      <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                          <button class="btn btn-link btn-block text-white text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <h5>Sites</h5> 
                           </button>
-                        </form>
+                        </h2>
+                      </div>
+
+                      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        
+                        <div class="card-body">
+                          @foreach($images as $image)
+                          <div class="card bg-dark" s>
+                            <h5 class="card-header">{{ $image->name }}</h5>
+                            <div class="card-body">                              
+                              <p class="card-text">{{ $image->description }}</p>
+                              {!! Form::open(['route' => 'aluno.basic.container.store', 'method' => 'post']) !!}
+                              <input type="hidden" value="{{ $image->id }}" name='image_id'>
+                              <input type="hidden" value="{{ Auth()->user()->id }}" name='user_id'>                    
+                              <input type="hidden" value="{{ now() }}" name='nickname'> 
+                              <input type="hidden" value=0 name='Memory'> 
+                              <input type="hidden" value="{{ null }}" name='envVariables'> 
+                              <input type="hidden" value="{{ null }}" name='IPAddress'> 
+                                                
+                              <button type="submit" class="btn btn-sucess btn-link">
+                                  <a class="dropdown-item" >Executar</a>
+                              </button>
+
+                              {!! Form::close() !!}
+                              {{-- @foreach ($params['info'] as $element)
+                                @forelse ($element['Ports'] as $port)                                 
+                                    <a class="btn btn-info" href="{{ 'http://'. $port['IP'] .':'. $port['PublicPort'] }}" target="_blank">{{ $port['PublicPort'] }}</a>
+                                @empty
+                                    No ports
+                                @endforelse                            
+                              @endforeach --}}
+                              {{-- <button type="submit" class="btn btn-sucess btn-link">
+                                  <a class="dropdown-item" >Acessar site</a>
+                              </button> --}}
+                            </div>
+                          </div>
+                          
+                            
+                        @endforeach
+                             
+                        </div>
                       </div>
                     </div>
-                  </div>
-                @endforeach              
-              </div>              
+                  </div>              
             </div>
         </div>
       </div>

@@ -39,7 +39,7 @@
             <span class="sidebar-normal">{{ __('User profile') }} </span>
         </a>
       </li>
-      @if (!Auth::user()->isAluno())
+      @if (Auth::user()->isAdmin())
       <li class="nav-item{{ $activePage == 'user-machines' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('user.machines') }}">
           <i class="material-icons">dvr</i>
@@ -52,31 +52,73 @@
             <i class="fab fa-docker"></i>
             <span class="sidebar-normal"> {{ __('Images') }} </span>
         </a>
-      </li>
+      </li> 
+
       <li class="nav-item{{ $activePage == 'my-containers' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('instance.index') }}">
             <i class="fas fa-server"></i>
             <span class="sidebar-normal"> {{ __('My Containers') }} </span>
         </a>
       </li>
+      @if(Auth::user()->isAdmin())
       <li class="nav-item{{ $activePage == 'dockerfiles' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('admin.area.dockerfiles') }}">
             <i class="fas fa-server"></i>
             <span class="sidebar-normal"> {{ __('Dockerfiles') }} </span>
         </a>
       </li>
-      <li class="nav-item{{ $activePage == 'basic' ? ' active' : '' }}">
+      @endif
+      @if(Auth::user()->isBasic() || Auth::user()->isAdmin())
+      <li class="nav-item{{ $activePage == 'dockerfiles' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('aluno.basic.index') }}">
-            <i class="fas fa-server"></i>
+            <i class="fas fa-star-half-alt"></i>
             <span class="sidebar-normal"> {{ __('Basic') }} </span>
         </a>
       </li>
+      <li class="nav-item{{ $activePage == 'dockerfiles' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('aluno.basic.containers') }}">
+            <i class="fas fa-server"></i>
+            <span class="sidebar-normal"> {{ __('Containers') }} </span>
+        </a>
+      </li>
+      {{-- <li class="nav-item{{ $activePage == 'basic' ? ' active' : '' }}">
+        <div class="container">
+          <div class="row">
+            <div class="col-8 pl-5" >
+              <a class="nav-link"  href="{{ route('aluno.basic.index') }}" >
+                <i class="fas fa-server "></i>
+                <span class="sidebar-normal"> {{ __('Basic') }} </span>
+              </a>
+            </div>
+            <div class="col-4">
+              <a href="#" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+          
+        </div>
+          
+          
+          <div class="collapse" id="collapseExample">
+            <a class="nav-link" href="{{ route('aluno.basic.containers') }}" >
+            <i class="fas fa-server"></i>
+            <span class="sidebar-normal"> {{ __('Containers') }} </span>
+          </a>           
+          </div>
+        
+      </li> --}}
+      @endif
+      @if(Auth::user()->isAdvanced() || Auth::user()->isAdmin())
       <li class="nav-item{{ $activePage == 'advanced' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('aluno.advanced.index') }}">
-            <i class="fas fa-server"></i>
+            <i class="fas fa-star"></i>
             <span class="sidebar-normal"> {{ __('Advanced') }} </span>
         </a>
       </li>
+      @endif
       <!-- <li class="nav-item {{ ($activePage == 'profile' || $activePage == 'user-management') ? ' active' : '' }}">
         <a class="nav-link" data-toggle="collapse" href="#laravelExample" aria-expanded="true">
           <i><img style="width:25px" src="{{ asset('material') }}/img/laravel.svg"></i>

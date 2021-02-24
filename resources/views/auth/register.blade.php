@@ -98,15 +98,26 @@
                 </div>
               @endif
             </div>
+
             <div class="form-check mr-auto ml-3 mt-3">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" id="type" name="type" {{ old('type', 1) ? 'checked' : '' }} >
+              <label class="form-check-label" for="exampleRadios1">
+              <input class="form-check-input" type="radio" name="type" id="exampleRadios1" value="basic" checked>
                 <span class="form-check-sign">
                   <span class="check"></span>
                 </span>
-                {{ __('Register as a student.') }}
+                {{ __('Register as a student Basic.') }}
               </label>
             </div>
+            <div class="form-check mr-auto ml-3 mt-3">
+              <label class="form-check-label" for="exampleRadios2">
+              <input class="form-check-input" type="radio" name="type" id="exampleRadios2" value="advanced">
+                <span class="form-check-sign">
+                  <span class="check"></span>
+                </span>
+                {{ __('Register as a student Advanced.') }}
+              </label>
+            </div>            
+
             <div class="form-check mr-auto ml-3 mt-3">
               <label class="form-check-label">
                 <input class="form-check-input" type="checkbox" id="policy" name="policy" {{ old('policy', 1) ? 'checked' : '' }} >

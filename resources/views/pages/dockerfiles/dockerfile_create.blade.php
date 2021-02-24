@@ -34,10 +34,10 @@
                       <label for="tag">tag</label>
                       <input type="text" class="form-control" id="tag" name="tag">
                     </div>
-                    <div class="form-group">
-                      <label for="file">File</label>
-                      <input type="file"  id="file" name="file">
-                    </div>                    
+                    <div class="">
+                      <label for="myfile">Select a file:</label>
+                      <input type="file"  id="file" name="file"><br><br>
+                    </div>
                     <button type="submit" class="btn btn-primary">Salvar</button>
                   </form>
               </div>

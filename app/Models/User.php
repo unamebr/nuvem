@@ -47,8 +47,13 @@ class User extends Authenticatable
         return $this->user_type == 'admin';
     }
 
-    public function isAluno()
+    public function isBasic()
     {
-        return $this->user_type == 'aluno';
+        return $this->user_type == 'basic';
+    }
+
+    public function isAdvanced()
+    {
+        return $this->user_type == 'advanced';
     }
 }

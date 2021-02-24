@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Dockerfile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class DockerfileController extends Controller
 {
@@ -41,16 +42,21 @@ class DockerfileController extends Controller
     public function store(Request $request)
     {
         $dockerfiles = Dockerfile::all();
-        $dir = $request->tag;
+        $path = storage_path('app/public/'.$request->tag);
         $nameFile = 'Dockerfile.tar.gz';
         if($request->file('file')->isValid()){
-            $path = $request->file('file')->storeAs($dir, $nameFile);
+            $path = $request->file('file')->storeAs(
+                $request->tag, 'Dockerfile.tar.gz'
+            );
             Dockerfile::create([
                 'file' => $path,
-                'tag'  => $dir
+                'tag'  => $request->tag
             ]);
         }
-
+        // $files = Storage::files($request->tag);
+        // dd($files[0]);
+        // $url = Storage::url($path);
+        // dd($url);
 
 
         return redirect()->route('admin.area.dockerfiles');
@@ -114,11 +120,12 @@ class DockerfileController extends Controller
         
         $dockerfile = Dockerfile::where('tag', $request->tag)->first();
         $path = storage_path('app/public/'.$dockerfile->tag.'/Dockerfile.tar.gz');
+        // dd($path);
         $url = env('DOCKER_HOST');
         $body = fopen($path, 'r');
-        $r = $client->request('POST', $url.'build?t='.$dockerfile->tag, 
+        $r = $client->request('POST', $url.'/build?t='.$dockerfile->tag, 
             ['body' => $body,
-             'Content-Type' => 'application/x-tar',
+             'Content-type' => 'application/x-tar'
             ]);
 
         
