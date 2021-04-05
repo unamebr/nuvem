@@ -49,6 +49,17 @@
                     </div>
                   </div>
                 </div>
+                <div class="row">
+                  <label class="col-sm-2 col-form-label">{{ __('Iniciais') }}</label>
+                  <div class="col-sm-7">
+                    <div class="form-group{{ $errors->has('user_name') ? ' has-danger' : '' }}">
+                      <input class="form-control{{ $errors->has('user_name') ? ' is-invalid' : '' }}" name="user_name" id="input-email" type="text" placeholder="{{ __('Iniciais') }}" value="{{ old('user_name', auth()->user()->user_name) }}" required />
+                      @if ($errors->has('user_name'))
+                        <span id="email-error" class="error text-danger" for="input-email">{{ $errors->first('user_name') }}</span>
+                      @endif
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="card-footer ml-auto mr-auto">
                 <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>

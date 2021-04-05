@@ -47,19 +47,22 @@
         </a>
       </li>          
       @endif
+      @if(Auth::user()->isAdmin())
       <li class="nav-item{{ $activePage == 'images' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('images.index') }}">
             <i class="fab fa-docker"></i>
             <span class="sidebar-normal"> {{ __('Images') }} </span>
         </a>
-      </li> 
-
+      </li>
+      @endif 
+      @if(Auth::user()->isAdmin())
       <li class="nav-item{{ $activePage == 'my-containers' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('instance.index') }}">
             <i class="fas fa-server"></i>
             <span class="sidebar-normal"> {{ __('My Containers') }} </span>
         </a>
       </li>
+      @endif
       @if(Auth::user()->isAdmin())
       <li class="nav-item{{ $activePage == 'dockerfiles' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('admin.area.dockerfiles') }}">

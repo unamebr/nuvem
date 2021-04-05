@@ -114,8 +114,7 @@
                             @forelse ($element['Ports'] as $port) 
                               @if(isset($port['IP']))
                               <a class="btn btn-info" href="{{ 'http://'. $port['IP'] .':'. $port['PublicPort'] }}" target="_blank">{{ $port['PublicPort'] }}</a>
-                              @else
-                              No ports
+                              
                               @endif
                             @empty
                                 No ports
@@ -145,6 +144,7 @@
   var socketParams = <?= $socketParams; ?>;
   var host = socketParams['dockerHost'];
   var containerId = socketParams['container_id'];
+  console.log(containerId + 'id container')
   var endpoint = "/attach/ws?logs=0&stream=1&stdin=1&stdout=1&stderr=1";
 
   const url = host+'/containers/'+containerId+endpoint;

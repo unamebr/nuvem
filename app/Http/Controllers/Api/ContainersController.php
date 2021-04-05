@@ -61,7 +61,7 @@ class ContainersController extends Controller
                 'container_id' => $id,
             ]),
         ];
-
+        
         return view('pages/my-containers/my_containers_terminal_tab', $params);
     }
 
@@ -187,8 +187,7 @@ class ContainersController extends Controller
     private function createContainer($url, $data)
     {
         $response = Http::asJson()->post("$url/containers/create", $data);
-        //dd($response->getStatusCode());
-        //dd($data);
+
         if ($response->getStatusCode() == 201) {
             $container_id = $response->json()['Id'];
             $response = Http::asJson()->post("$url/containers/$container_id/start");

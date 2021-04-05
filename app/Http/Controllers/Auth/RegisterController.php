@@ -64,10 +64,28 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
+    {   
+        $names = explode(" ", $data['name']);
+        $user_name = '';
+        foreach ($names as $key => $name) {
+            if(ctype_upper($name[0])){
+                $user_name = $user_name . $name[0];
+            }
+        }
+
+        $user_count = User::where('user_name', '=', $user_name)
+                            ->count();
         
+        if($user_count == 0){
+            $user_name = $user_name;
+        }else{
+            $user_name = $user_name.strval($user_count + 1);
+        }
+        
+        // dd($user_name);
         return User::create([
             'name' => $data['name'],
+            'user_name' => $user_name,
             'email' => $data['email'],
             'phone' => $data['phone'],
             'password' => Hash::make($data['password']),

@@ -69,13 +69,18 @@ class BasicController extends Controller
         } catch (Exception $e) {
             return  $e->getMessage();
         }
+        
         $params = [
             'mycontainers' => $info->json(),
             'dockerHost' => env('DOCKER_HOST'),
             'title' => 'My Containers',
-        ];
+            'user' => auth()->user(),
+            'image_names' => Image::all(['fromImage', 'tag', 'photo', 'name'])
 
-        //dd($params['mycontainers']);	
+        ];
+        // dd();
+        // $user = auth()->user();
+        // dd($params['mycontainers']);	
 
         return view('pages.student.basic.containers', $params);
     }
@@ -121,8 +126,8 @@ class BasicController extends Controller
         $image = Image::find($data['image_id']);
         $data['Image'] = $image->fromImage .':'.$image->tag;
         $data['Memory'] = $data['Memory'] ? intval($data['Memory']) : 0;
-        $inicias = "jean";
-
+        // dd();
+        $inicias = auth()->user()->user_name;
         $data['Env'] = $data['envVariables'] ? explode(';', $data['envVariables']) : [];
         array_pop($data['Env']); // Para remover string vazia no ultimo item do array, evitando erro na criação do container.
 
@@ -200,12 +205,9 @@ class BasicController extends Controller
     {
         
         $response = Http::asJson()->post("$url/containers/create", $data);        
-        $exec = $this->exec();
         if ($response->getStatusCode() == 201) {
             $container_id = $response->json()['Id'];
             $response = Http::asJson()->post("$url/containers/$container_id/start");
-            $response = Http::asJson()->post("$url/containers/$container_id/exec", $exec);
-            // dd($response);
             
             $data['hashcode_maquina'] = Maquina::first()->hashcode;
             $data['docker_id'] = $container_id;
@@ -218,39 +220,20 @@ class BasicController extends Controller
         }
     }
 
-    private function exec()
-    {
-        $data['AttachStdin'] = true;
-        $data['AttachStdout'] = true;
-        $data['AttachStderr'] = true;
-        $data['Tty'] = true;
-
-        $data['Entrypoint'] = [
-           '/bin/bash', 
-        ];
-        $data['Cmd'] = [
-            'service', 'apache2','start', 'service', 'mysql','start',
-        ];
-        // $data['Cmd'] = [
-        //     './script.sh'
-        // ];
-
-        
-        // dd($data);
-        
-        return $data;
-    }
+    
 
     public function playStop($container_id)
     {
         $instancia = Container::where('docker_id', $container_id)->first();
         $url = env('DOCKER_HOST');
-
+        
         if ($instancia->dataHora_finalizado) {
             $host = "$url/containers/$container_id/start";
             $dataHora_fim = null;
+            
+
         } else {
-            $host = "$url/containers/$container_id/stop";
+            $host = "$url/containers/$container_id/pause";
             $dataHora_fim = now();
         }
 
@@ -259,7 +242,7 @@ class BasicController extends Controller
 
             $instancia->dataHora_finalizado = $dataHora_fim;
             $instancia->save();
-
+            // dd($instancia);
             return redirect()->route('aluno.basic.index')->with('success', 'Container created with sucess!');
         } catch (Exception $e) {
             return redirect()->route('aluno.basic.index')->with('error', "Fail to stop the container! $e");
@@ -269,12 +252,13 @@ class BasicController extends Controller
     public function destroy($id)
     {
         $url = env('DOCKER_HOST');
-
+        //dd($id);
         $responseStop = Http::post("$url/containers/$id/stop");
         if ($responseStop->getStatusCode() == 204 || $responseStop->getStatusCode() == 304) {
             $responseDelete = Http::delete("$url/containers/$id");
             if ($responseDelete->getStatusCode() == 204) {
                 $instancia = Container::firstWhere('docker_id', $id);
+                
                 $instancia->delete();
 
                 return redirect()->route('aluno.basic.index')->with('success', 'Container deleted with sucess!');

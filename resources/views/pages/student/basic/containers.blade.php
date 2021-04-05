@@ -19,7 +19,7 @@
                 @if(session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
-                @include('pages/tables/containers_card', ['$mycontainers' => $mycontainers, 'isAdminArea' => false])
+                @include('pages/tables/containers_card', ['mycontainers' => $mycontainers,'user' => $user, 'image_names' => $image_names , 'isAdminArea' => false])
             </div>
         </div>
       </div>

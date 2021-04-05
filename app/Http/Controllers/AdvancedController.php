@@ -18,16 +18,16 @@ class AdvancedController extends Controller
     	$images = Image::all();
     	try {
             $url = env('DOCKER_HOST');            
-            $info = Http::get("$url/system/df");
+            $info = Http::get("$url/containers/json");
         } catch (Exception $e) {
             return  $e->getMessage();
         }
-
+        // dd($info->json());
     	$params = [
             'mycontainers' => Container::where('user_id', Auth::user()->id)->paginate(10),
             'dockerHost' => env('DOCKER_HOST'),
             'title' => 'My Containers',
-            'info'  => $info->json()['Containers']
+            'info'  => $info->json()
             
         ];
 
@@ -50,7 +50,7 @@ class AdvancedController extends Controller
                 'container_id' => $id,
             ]),
         ];
-
+        // dd($params);
         return redirect()->route('aluno.advanced.index', ['params' => $params]);
     }
 
@@ -144,7 +144,7 @@ class AdvancedController extends Controller
 
         try {
             $url = env('DOCKER_HOST');            
-            $info = Http::get("$url/system/df");
+            $info = Http::get("$url/containers/json");
         } catch (Exception $e) {
             return  $e->getMessage();
         }
@@ -153,7 +153,7 @@ class AdvancedController extends Controller
             'mycontainers' => Container::where('user_id', Auth::user()->id)->paginate(10),
             'dockerHost' => env('DOCKER_HOST'),
             'title' => 'My Containers',
-            'info'  => $info->json()['Containers']
+            'info'  => $info->json()
             
         ];
         $socketParams = json_encode([

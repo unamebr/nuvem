@@ -100,7 +100,7 @@
             </div>
 
             <div class="form-check mr-auto ml-3 mt-3">
-              <label class="form-check-label" for="exampleRadios1">
+              <label class="form-check-label text-body" for="exampleRadios1">
               <input class="form-check-input" type="radio" name="type" id="exampleRadios1" value="basic" checked>
                 <span class="form-check-sign">
                   <span class="check"></span>
@@ -109,17 +109,17 @@
               </label>
             </div>
             <div class="form-check mr-auto ml-3 mt-3">
-              <label class="form-check-label" for="exampleRadios2">
+              <label class="form-check-label text-body" for="exampleRadios2">
               <input class="form-check-input" type="radio" name="type" id="exampleRadios2" value="advanced">
                 <span class="form-check-sign">
                   <span class="check"></span>
-                </span>
-                {{ __('Register as a student Advanced.') }}
+                </span  >
+                 {{ __('Register as a student Advanced.') }}
               </label>
             </div>            
 
             <div class="form-check mr-auto ml-3 mt-3">
-              <label class="form-check-label">
+              <label class="form-check-label text-body">
                 <input class="form-check-input" type="checkbox" id="policy" name="policy" {{ old('policy', 1) ? 'checked' : '' }} >
                 <span class="form-check-sign">
                   <span class="check"></span>
