@@ -27,4 +27,9 @@ class Container extends Model
     {
         return Image::firstWhere('id', $this->image_id);
     }
+
+    public function commands()
+    {
+        return $this->hasMany('App\Models\Command');
+    }
 }

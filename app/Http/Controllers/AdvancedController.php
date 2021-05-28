@@ -17,29 +17,38 @@ class AdvancedController extends Controller
     {
     	$images = Image::all();
     	try {
-            $url = env('DOCKER_HOST');            
+            $url = env('DOCKER_HOST');
             $info = Http::get("$url/containers/json");
         } catch (Exception $e) {
             return  $e->getMessage();
         }
-        // dd($info->json());
+
     	$params = [
             'mycontainers' => Container::where('user_id', Auth::user()->id)->paginate(10),
             'dockerHost' => env('DOCKER_HOST'),
             'title' => 'My Containers',
             'info'  => $info->json()
-            
+
         ];
 
         $socketParams = json_encode([
                 'dockerHost' => env('DOCKER_HOST_WS'),
                 'container_id' => null,
-            ]);
+        ]);
+
+        $containers_exists = [];
+        $containers = Container::where('user_id', Auth::user()->id)->get();
+        foreach ($params['info'] as $key => $value) {
+            if($containers->contains('docker_id', $value['Id'])) {
+                array_push($containers_exists, $value);
+            }
+        }
+        $params['info'] = $containers_exists;
 
     	return view('pages.student.advanced.index', compact('params','images', 'socketParams'));
     }
 
-    public function addContainer()
+    public function addContainer($id)
     {
         $container = Container::firstWhere('docker_id', $id);
 
@@ -70,7 +79,7 @@ class AdvancedController extends Controller
 
     private function setDefaultDockerParams(array $data)
     {
-        
+
         $data['Image'] = Image::find($data['image_id'])->fromImage;
         $data['Memory'] = $data['Memory'] ? intval($data['Memory']) : 0;
 
@@ -111,7 +120,7 @@ class AdvancedController extends Controller
         $image->message ? $uri .= "&message=$image->message" : $uri;
 
         $response = Http::post("$url/$uri");
-        
+
         if ($response->getStatusCode() != 200) {
             dd($response->json());
         }
@@ -138,12 +147,12 @@ class AdvancedController extends Controller
     }
 
     public function terminal($id)
-    {	
-    	$images = Image::all();    	
+    {
+    	$images = Image::all();
     	$container = Container::firstWhere('docker_id', $id);
 
         try {
-            $url = env('DOCKER_HOST');            
+            $url = env('DOCKER_HOST');
             $info = Http::get("$url/containers/json");
         } catch (Exception $e) {
             return  $e->getMessage();
@@ -154,12 +163,14 @@ class AdvancedController extends Controller
             'dockerHost' => env('DOCKER_HOST'),
             'title' => 'My Containers',
             'info'  => $info->json()
-            
+
         ];
         $socketParams = json_encode([
-                'dockerHost' => env('DOCKER_HOST_WS'),
-                'container_id' => $id,
-            ]);
+            'dockerHost' => env('DOCKER_HOST_WS'),
+            'container_id' => $id,
+        ]);
+
+
 
         return view('pages.student.advanced.index',compact('params','images', 'socketParams'));
     }
