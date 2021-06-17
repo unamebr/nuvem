@@ -4,6 +4,13 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
+            @if(session('message'))
+            <div class="col-md-12" style="margin-top: 5px;">
+                <div class="alert alert-warning">
+                    <p>{{session('message')}}</p>
+                </div>
+            </div>
+            @endif
             @foreach($machines as $machine)
             <div class="col-lg-6 col-md-12 col-sm-12">
                 <div class="card card-stats">

@@ -5,39 +5,46 @@
 
 @section('content')
 <div class="content">
-  <div class="container-fluid">      
+  <div class="container-fluid">
       <div class="col-md-12">
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title ">Containers</h4>
                 <p class="card-category">Manager Containers</p>
             </div>
-            <div class="Container" >              
+            <div class="Container" >
                 <div class="row">
                   <div class="col-md-4">
-                    
+
                     <div class="dropdown">
                       <a class="btn btn-sucess dropdown-toggle ml-3" style="width: 28em" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                        <i class="fas fa-plus center"></i> &nbsp; Container 
+                        <i class="fas fa-plus center"></i> &nbsp; Container
                       </a>
 
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">                    
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         @foreach($images as $image)
                           {!! Form::open(['route' => 'aluno.advanced.container.store', 'method' => 'post']) !!}
                           <input type="hidden" value="{{ $image->id }}" name='image_id'>
-                          <input type="hidden" value="{{ Auth()->user()->id }}" name='user_id'>                    
-                          <input type="hidden" value="{{ now() }}" name='nickname'> 
-                          <input type="hidden" value=0 name='Memory'> 
-                          <input type="hidden" value="{{ null }}" name='envVariables'> 
-                          <input type="hidden" value="{{ null }}" name='IPAddress'> 
-                                            
-                          <button type="submit" class="btn btn-sucess btn-link">
+                          <input type="hidden" value="{{ Auth()->user()->id }}" name='user_id'>
+                          <input type="hidden" value="{{ now() }}" name='nickname'>
+                          <input type="hidden" value=0 name='Memory'>
+                          <input type="hidden" value="{{ null }}" name='envVariables'>
+                          <input type="hidden" value="{{ null }}" name='IPAddress'>
+
+                          <button id="buttonExecutar" type="submit" class="btn btn-sucess btn-link">
                               <a class="dropdown-item" >{{ $image->name }}</a>
                           </button>
+                            <button id="spin" style="display: none;" type="submit" class="btn btn-sucess btn-link">
+                                <a   class="dropdown-item mr-3" >
+                                    <div  class="spinner-border"  role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </a>
+                            </button>
 
                           {!! Form::close() !!}
-                            
-                        @endforeach                    
+
+                        @endforeach
                       </div>
                     </div>
                     @foreach ($params['mycontainers'] as $container)
@@ -53,7 +60,7 @@
                                     <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-down-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
 </svg>
-                                  </div>                                  
+                                  </div>
                                 </div>
                               </button>
 
@@ -75,7 +82,7 @@
                                            title="Open terminal.">
                                           <i class="fas fa-terminal"></i>
                                       </a>
-                                      
+
                                       <a href="{{$params['dockerHost']}}/containers/{{$container->docker_id}}/logs?timestamps=1&stdout=1&stderr=1"
                                           class="btn btn-info btn-link btn-sm" target="_black" title="Logs.">
                                           <i class="fas fa-file-alt"></i>
@@ -94,51 +101,59 @@
                                             onclick="return confirm('Are you sure?')" type="submit">
                                             <i class="material-icons">delete</i>
                                         </button>
-                                        {!! Form::close() !!}                                         
+                                        {!! Form::close() !!}
                                       </div>
-                                      
-                                  
-                              
+
+
+
                             </div>
                           </div>
-                                                                                  
+
                       </div>
                   @endforeach
-     
+
                   </div>
                   <div class="col-md-8 ">
 
                     <div class="card-body ml-3">
                       <p> <strong>Portas abertas:</strong> </p>
                           @foreach ($params['info'] as $element)
-                            @forelse ($element['Ports'] as $port) 
+                            @forelse ($element['Ports'] as $port)
                               @if(isset($port['IP']))
                               <a class="btn btn-info" href="{{ 'http://'. $port['IP'] .':'. $port['PublicPort'] }}" target="_blank">{{ $port['PublicPort'] }}</a>
-                              
+
                               @endif
                             @empty
                                 No ports
-                            @endforelse                            
+                            @endforelse
                           @endforeach
-                      
+
                       <div id="terminal"></div>
                     </div>
 
 
                   </div>
                   <div class="col-md-4">
-                      
-                  </div>              
+
+                  </div>
               </div>
             </div>
       </div>
     </div>
   </div>
-</div>    
+</div>
 
 
 @endsection
 @push('js')
+    <script>
+        $(document).ready(function(){
+            $("#buttonExecutar").click(function(){
+                $("#spin").show();
+                $("#buttonExecutar").hide();
+            });
+        });
+    </script>
   <script>
     $('.dropdown-toggle').dropdown();
   var socketParams = <?= $socketParams; ?>;

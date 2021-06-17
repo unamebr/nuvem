@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    font-family: "Nunito", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1.6;
+    text-align: left;
+    background-color: #161920;
+    color: #ffffff;
+}
+
+.sidebar {
+    background-color: #1d212c;
+    color: #ffffff;
+}
+
+a {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+a:hover {
+    color: #c0c0c0;
+    text-decoration: underline;
+}
+
+p {
+    color: #ffffff;
+}
+
+span {
+    color: #ffffff;
+}
+
+.card {
+    background-color: #1d212c;
+    color: #ffffff;
+}
+
+.card-title  {
+    color: #ffffff;
+}
+
+label {
+    color: #ffffff;
+}
+
+.form-control {
+    color: #ffffff;
+}
+.card-body {
+    color: #ffffff;
+}
+.card-header-primary {
+    color: #1d212c;
+}
+
+.row {
+    background-color: #1d212c;
+    color: #ffffff;
+}
+.container {
+    background-color: #1d212c !important;
+    color: #ffffff !important;
+}

@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
+
     public function index(User $model)
     {
         return view('users.index', ['users' => $model->paginate(15)]);
@@ -40,13 +41,16 @@ class UserController extends Controller
     {
         $this->validate($request, $request->rules());
 
+        $data = $request->all();
+        $data['acess'] = $request->has('acess') ? true : false;
         $user = User::firstWhere('id', $id);
-        $result = $user->update($request->all());
+        $result = $user->update($data);
+        // dd($result);
 
         if ($result) {
-            return redirect()->back();
+            return back()->with(['message' => 'Atualizado com sucesso']);
         } else {
-            return redirect()->back()->withInput();
+            return redirect()->back()->with(['message' => 'Erro']);
         }
     }
 

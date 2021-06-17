@@ -3,16 +3,24 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Http\Request;
+use Exception;
 use App\Models\Image;
-use App\Models\Container;
 use App\Models\Maquina;
+use App\Models\Container;
+use Illuminate\Http\Request;
+use App\Http\Middleware\CheckQtd;
+use App\Http\Middleware\CheckAcess;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Exception;
 
 class AdvancedController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(CheckAcess::class)->except(['painel' ]);
+        $this->middleware(CheckQtd::class)->only(['containerStore' ]);
+    }
+
     public function painel()
     {
     	$images = Image::all();

@@ -2,32 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Middleware\CheckAcess;
+use Exception;
 use App\Models\Image;
-use App\Models\Container;
 use App\Models\Maquina;
+use App\Models\Container;
+use Illuminate\Http\Request;
+use App\Http\Middleware\CheckQtd;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Exception;
 
 class BasicController extends Controller
 {
-
-
-    // public function listImages()
-    // {
-    //     $url = env('DOCKER_HOST');
-    //     $images = Image::all();
-    //     // $images = Http::get("$url/images/json");
-    //     // $images = json_decode($images, true);
-    //     // dd($images[0]['RepoTags'][0]);
-    //     // $sites = [
-    //     //     'images' => Image::all(),
-
-    //     // ];
-
-    //     return view('pages.student.basic.index', compact('images'));
-    // }
+    public function __construct()
+    {
+        $this->middleware(CheckAcess::class)->except(['index' ]);
+        $this->middleware(CheckQtd::class)->only(['containerStore' ]);
+    }
 
     public function index()
     {
@@ -40,10 +31,9 @@ class BasicController extends Controller
         }
 
         $url = env('DOCKER_HOST');
-        // $imagesDocker = Image::all();
+
         $imagesDocker = Http::get("$url/images/json");
         $imagesDocker = json_decode($imagesDocker, true);
-        // dd($imagesDocker[0]['RepoTags']);
 
     	$params = [
             'mycontainers' => Container::where('user_id', Auth::user()->id)->paginate(10),
@@ -65,13 +55,14 @@ class BasicController extends Controller
     {
     	try {
             $url = env('DOCKER_HOST');
-            $info = Http::get("$url/containers/json");
+            $info = Http::get("$url/containers/json?all=true");
         } catch (Exception $e) {
             return  $e->getMessage();
         }
 
         $params = [
-            'mycontainers' => $info->json(),
+            'mycontainers' => Container::where('user_id', Auth::user()->id)->get(),
+            'info' => $info->json(),
             'dockerHost' => env('DOCKER_HOST'),
             'title' => 'My Containers',
             'user' => auth()->user(),
@@ -81,15 +72,12 @@ class BasicController extends Controller
 
         $containers_exists = [];
         $containers = Container::where('user_id', Auth::user()->id)->get();
-        foreach ($params['mycontainers'] as $key => $value) {
+        foreach ($params['info'] as $key => $value) {
             if($containers->contains('docker_id', $value['Id'])) {
                 array_push($containers_exists, $value);
             }
         }
-        $params['mycontainers'] = $containers_exists;
-        // dd(array_intersect($ids, $array2) );
-        // dd( $params['mycontainers']);
-        // dd($params['mycontainers']);
+        $params['info'] = $containers_exists;
 
         return view('pages.student.basic.containers', $params);
     }

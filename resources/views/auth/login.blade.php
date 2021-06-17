@@ -3,27 +3,17 @@
 @section('content')
 <div class="container" style="height: auto;">
   <div class="row align-items-center">
-    
+
     <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
       <form class="form" method="POST" action="{{ route('login') }}">
         @csrf
 
-        <div class="card card-login card-hidden mb-3">
-          <div class="card-header card-header-primary text-center">
-            <h4 class="card-title"><strong>{{ __('Login') }}</strong></h4>
-            <div class="social-line">
-              <!-- <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
-                <i class="fa fa-facebook-square"></i>
-              </a>
-              <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
-                <i class="fa fa-twitter"></i>
-              </a>
-              <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
-                <i class="fa fa-google-plus"></i>
-              </a> -->
-            </div>
+        <div class="card card-login card-hidden shadow-lg p-3 mb-5 bg-white rounded" style="height: 30rem;background-color: #1d212c;color: #ffffff;">
+          <img src="https://icon-library.com/images/dog-icon/dog-icon-16.jpg" style="height: 10rem;width:10rem;margin-left:25%"  class=" " alt="...">
+          <div class="card-header text-center">
+            <h4 class="card-title"><strong>{{ __('Olá, seja bem-vindo(a)!') }}</strong></h4>
           </div>
-          <div class="card-body">
+          <div class="card-body " >
             <div class="bmd-form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
               <div class="input-group">
                 <div class="input-group-prepend">

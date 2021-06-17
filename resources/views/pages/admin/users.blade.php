@@ -4,6 +4,13 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
+            @if(session('message'))
+            <div class="col-md-12" style="margin-top: 5px;">
+                <div class="alert alert-success">
+                    <p>{{session('message')}}</p>
+                </div>
+            </div>
+            @endif
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-primary">

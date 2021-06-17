@@ -101,7 +101,7 @@ class AdminAreaController extends Controller
     public function requests()
     {
         if (Auth::user()->isAdmin()) {
-            $users = User::where('user_type', 'aluno')->orderBy('id')->paginate(10);
+            $users = User::where('user_type', '!=','admin')->orderBy('id')->paginate(10);
             $params = [
                 'users' => $users,
                 'registeredToday' => User::whereYear('created_at', date('Y'))->whereMonth('created_at', date('m'))->whereDay('created_at', date('d'))->count(),
@@ -179,5 +179,5 @@ class AdminAreaController extends Controller
 
         return view('pages.admin.dockerfiles', compact('dockerfiles', 'url'));
 
-    }   
+    }
 }
