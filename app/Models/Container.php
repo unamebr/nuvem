@@ -32,4 +32,9 @@ class Container extends Model
     {
         return $this->hasMany('App\Models\Command');
     }
+
+    public function ports()
+    {
+        return $this->hasMany('App\Models\Port');
+    }
 }

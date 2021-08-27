@@ -205,7 +205,7 @@ class BasicController extends Controller
         if ($response->getStatusCode() == 201) {
             $container_id = $response->json()['Id'];
             $response = Http::asJson()->post("$url/containers/$container_id/start");
-
+            // dd($response->json());
             $data['hashcode_maquina'] = Maquina::first()->hashcode;
             $data['docker_id'] = $container_id;
             $data['dataHora_instanciado'] = now();
