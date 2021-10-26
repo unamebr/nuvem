@@ -5,11 +5,11 @@
 
 @section('content')
 <div class="content">
-    <div class="container-fluid">
+    <div class="container-fluid container-color">
       <div class="col-md-12">
-        <div class="card">
+        <div class="card ">
             <div class="card-header ">
-                <h4 class="card-title font-weight-bold""> Containers</h4>
+                <h4 class="card-title font-weight-bold "> Containers</h4>
                 {{-- <p class="card-category">List of Instace Container Images</p> --}}
             </div>
             <hr>

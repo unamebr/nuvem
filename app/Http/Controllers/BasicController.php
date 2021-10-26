@@ -22,7 +22,7 @@ class BasicController extends Controller
 
     public function index()
     {
-    	$images = Image::all();
+    	$images = Image::where('user_type', 'basic')->get();
     	try {
             $url = env('DOCKER_HOST');
             $info = Http::get("$url/system/df");
@@ -197,7 +197,28 @@ class BasicController extends Controller
             dd($response->json());
         }
     }
+    // $response = Http::asJson()->post("$url/containers/create", $data);
+    // if ($response->getStatusCode() == 201) {
+    //     $container_id = $response->json()['Id'];
+    //     $response = Http::asJson()->post("$url/containers/$container_id/start");
+    //     if ($response->getStatusCode() == 201) {
+    //         $container = Http::asJson()->post("$url/containers/$container_id/json");
+    //         $container = json_decode($container);
+    //         $data['hashcode_maquina'] = Maquina::first()->hashcode;
+    //         $data['docker_id'] = $container_id;
+    //         $data['status'] = $container->State->Status;
+    //         $data['user_id'] = Auth::user()->id;
+    //         $data['dataHora_instanciado'] = now();
+    //         $data['dataHora_finalizado'] = $response->getStatusCode() == 204 ? null : now();
 
+    //         Container::create($data);
+    //     }else{
+    //         dd($response);
+
+    //     }
+    // } else {
+    //     dd($response->json());
+    // }
     private function createContainer($url, $data)
     {
 
@@ -206,8 +227,13 @@ class BasicController extends Controller
             $container_id = $response->json()['Id'];
             $response = Http::asJson()->post("$url/containers/$container_id/start");
             // dd($response->json());
+            $container = Http::asJson()->get("$url/containers/$container_id/json");
+            // dd($container);
+            $container = json_decode($container);
             $data['hashcode_maquina'] = Maquina::first()->hashcode;
             $data['docker_id'] = $container_id;
+            $data['status'] = $container->State->Status;
+            $data['user_id'] = Auth::user()->id;
             $data['dataHora_instanciado'] = now();
             $data['dataHora_finalizado'] = $response->getStatusCode() == 204 ? null : now();
 

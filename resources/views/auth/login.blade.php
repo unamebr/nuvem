@@ -1,17 +1,19 @@
 @extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'login', 'title' => __('Login')])
 
 @section('content')
-<div class="container" style="height: auto;">
-  <div class="row align-items-center">
+<div class="container " style="height: auto;">
+  <div class="row align-items-center" style="background-color: #0f1116
+  " >
 
-    <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+    <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto ">
       <form class="form" method="POST" action="{{ route('login') }}">
         @csrf
 
-        <div class="card card-login card-hidden shadow-lg p-3 mb-5 bg-white rounded" style="height: 30rem;background-color: #1d212c;color: #ffffff;">
-          <img src="https://icon-library.com/images/dog-icon/dog-icon-16.jpg" style="height: 10rem;width:10rem;margin-left:25%"  class=" " alt="...">
-          <div class="card-header text-center">
-            <h4 class="card-title"><strong>{{ __('Olá, seja bem-vindo(a)!') }}</strong></h4>
+        <div class="card card-hidden  p-3 mb-5 rounded " 
+        style="height: 30rem;box-shadow: 0px 0px 10px 10px rgba(46, 69, 122, 0.92);border-color:#b8c6e7;border-style: solid;border-width: 2px;">
+          <img src="{{ asset('imagens/dogs.png') }}" style="height: 10rem;width:18rem;margin-left:5%"  class=" " alt="...">
+          <div class="card-header text-center" >
+            <h4 class="card-title" style="color: white"><strong>{{ __('Olá, seja bem-vindo(a)!') }}</strong></h4>
           </div>
           <div class="card-body " >
             <div class="bmd-form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
