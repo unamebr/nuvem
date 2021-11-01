@@ -17,10 +17,10 @@ class CreateMaquinasTable extends Migration
             $table->integer('ram_utilizavel'); // em MB
             $table->string('hashcode')->unique();
             $table->boolean('disponivel')->default(false);
-            $table->bigInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->ipAddress('ip')->nullable();
-            -$table->timestamps();
+            $table->timestamps();
             $table->softDeletes();
         });
     }
