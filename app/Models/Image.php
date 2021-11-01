@@ -9,10 +9,10 @@ class Image extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name', 'description', 'fromImage', 'fromSrc', 'repo', 'tag', 'message'];
+    protected $fillable = ['name', 'description', 'fromImage', 'fromSrc', 'repo', 'tag', 'message', 'user_type'];
 
     public function getInstances()
     {
-        return InstanciaContainer::where('image_id', $this->id);
+        return $this->hasMany(Container::class);
     }
 }

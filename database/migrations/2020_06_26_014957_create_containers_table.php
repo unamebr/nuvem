@@ -18,6 +18,9 @@ class CreateContainersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('image_id');
             $table->string('nickname', 256)->unique();
+            $table->string('status')->nullable(true);
+            $table->string('state')->nullable(true);
+            $table->string('ports')->nullable(true);
 
             $table->foreign('hashcode_maquina')->references('hashcode')->on('maquinas');
             $table->foreign('user_id')->references('id')->on('users');

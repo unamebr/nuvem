@@ -1,12 +1,12 @@
-<div class="sidebar" data-color="orange" data-background-color="white" data-image="{{ asset('material') }}/img/sidebar-1.jpg">
+<div class="sidebar" data-color="#15181e" data-background-color="white" data-image="{{ asset('material') }}/img/sidebar-1.jpg" style="background-color: #1d212c">
   <!--
       Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
       Tip 2: you can also add an image using data-image tag
   -->
   <div class="logo">
-    <a  class="simple-text logo-normal">
-      {{ __('Cloud Project') }}
+    <a  class="simple-text logo-normal" style="color: white">
+      {{ __('Matilha.host') }}
     </a>
   </div>
   <div class="sidebar-wrapper">

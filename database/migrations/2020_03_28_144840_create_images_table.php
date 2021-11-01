@@ -22,6 +22,7 @@ class CreateImagesTable extends Migration
             $table->string('repo')->nullable();
             $table->string('tag');
             $table->string('message')->nullable();
+            $table->string('user_type');
             $table->timestamps();
             $table->softDeletes();
         });

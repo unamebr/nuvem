@@ -23,7 +23,7 @@ class AdvancedController extends Controller
 
     public function painel()
     {
-    	$images = Image::all();
+    	$images = Image::where('user_type', 'advanced')->get();
     	try {
             $url = env('DOCKER_HOST');
             $info = Http::get("$url/containers/json");

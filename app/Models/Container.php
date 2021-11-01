@@ -9,7 +9,9 @@ class Container extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['hashcode_maquina', 'docker_id', 'user_id', 'dataHora_instanciado', 'dataHora_finalizado', 'nickname', 'image_id'];
+    protected $fillable = ['hashcode_maquina', 'docker_id', 'user_id', 'dataHora_instanciado',
+                             'dataHora_finalizado', 'nickname', 'image_id', 'status', 'state'
+                            ];
 
     public static $rules = [
         'hashcode_maquina' => ['required'],
@@ -25,11 +27,16 @@ class Container extends Model
 
     public function image()
     {
-        return Image::firstWhere('id', $this->image_id);
+        return $this->belongsTo('App\Models\Image');
     }
 
     public function commands()
     {
         return $this->hasMany('App\Models\Command');
+    }
+
+    public function ports()
+    {
+        return $this->hasMany('App\Models\Port');
     }
 }

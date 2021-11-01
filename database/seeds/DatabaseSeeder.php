@@ -49,6 +49,7 @@ class DatabaseSeeder extends Seeder
                               server (origin server).',
             'fromImage' => 'nginx',
             'tag' => 'latest',
+            'user_type' => 'advanced',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -70,6 +71,7 @@ class DatabaseSeeder extends Seeder
             'description' => 'WordPress é a mais popular  plataforma de publicação online. É open source, e utilizada por mais de 20% da Web.',
             'fromImage' => 'gabriel31415/wordpressmysql',
             'tag' => '17.0',
+            'user_type' => 'basic',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -82,6 +84,7 @@ class DatabaseSeeder extends Seeder
             'description' => 'Drupal é um software de gerenciamento de conteúdo. É usado para fazer muitos dos sites e aplicativos que você usa todos os dias.',
             'fromImage' => 'gabriel31415/drupalmariadb',
             'tag' => '2.0',
+            'user_type' => 'basic',
             'created_at' => now(),
             'updated_at' => now(),
             ]);
@@ -93,6 +96,7 @@ class DatabaseSeeder extends Seeder
             'description' => 'Joomla! é um sistema de gerenciamento de conteúdo (CMS) gratuito e de código aberto para publicação de conteúdo da web. ',
             'fromImage' => 'gabriel31415/joomlamariadb',
             'tag' => '3.0',
+            'user_type' => 'basic',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

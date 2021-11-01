@@ -9,6 +9,19 @@ body {
     color: #ffffff;
 }
 
+.background-container-color {
+    background-color: #161920;
+    color: #ffffff;
+}
+.container-color {
+    background-color: #1d212c;
+    color: #ffffff;
+}
+.item-color {
+    background-color: #282e3d;
+    color: #ffffff;
+}
+
 .sidebar {
     background-color: #1d212c;
     color: #ffffff;
@@ -63,4 +76,21 @@ label {
 .container {
     background-color: #1d212c !important;
     color: #ffffff !important;
+}
+
+.line {
+    border-top: 1px solid #303f58;
+}
+
+.background-dark {
+    background-color: #15181f;
+    color: white;
+}
+.container-dark {
+    background-color: #1d212c;
+    color: white;
+}
+.item-dark {
+    background-color: #2b2f3f;
+    color: white;
 }
