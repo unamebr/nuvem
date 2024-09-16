@@ -17,7 +17,7 @@ class CreateCommandsTable extends Migration
             $table->id();
             $table->string('command');
             $table->string('description')->nullable();
-            $table->bigInteger('container_id');
+            $table->unsignedBigInteger('container_id');
             $table->foreign('container_id')->references('id')->on('containers');
             $table->softDeletes();
             $table->timestamps();

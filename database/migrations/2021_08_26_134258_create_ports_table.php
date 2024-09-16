@@ -22,7 +22,7 @@ class CreatePortsTable extends Migration
             $table->string('type')->nullable(true);
             $table->json('networkSettings')->nullable(true);
 
-            $table->bigInteger('container_id');
+            $table->unsignedBigInteger('container_id');
             $table->foreign('container_id')->references('id')->on('containers');
             $table->timestamps();
             $table->softDeletes();

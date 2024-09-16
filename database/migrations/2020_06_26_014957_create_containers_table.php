@@ -15,8 +15,8 @@ class CreateContainersTable extends Migration
             $table->id();
             $table->string('hashcode_maquina');
             $table->string('docker_id')->unique();
-            $table->bigInteger('user_id');
-            $table->bigInteger('image_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('image_id');
             $table->string('nickname', 256)->unique();
             $table->string('status')->nullable(true);
             $table->string('state')->nullable(true);
